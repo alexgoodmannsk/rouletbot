@@ -43,5 +43,21 @@ public class test {
         pass.sendKeys("!QAZ2wsx");
         WebElement enter = driver.findElement(By.className("entergame"));
         enter.click();
+        checkLastSpin();
+//        driver.get("http://www.heroeswm.ru/roulette.php");
+//        WebElement field = driver.findElement(By.xpath("//img[@title='Straight up 19']"));
+//        field.click();
+//        WebElement bet = driver.findElement(By.name("bet"));
+//        bet.clear();
+//        bet.sendKeys("150");
+//        WebElement submit = driver.findElement(By.xpath("//input[@value='Поставить!']"));
+//        submit.click();
+    }
+
+    public String checkLastSpin(){
+        driver.get("http://www.heroeswm.ru/roulette.php");
+        String currentGold = driver.findElement(By.xpath("//td/img[@title='Золото']/following::td[1]")).getText();
+        driver.findElement(By.ByLinkText.linkText("Прошлая игра")).click();
+        return driver.findElement(By.xpath("//*[contains(text(), 'Выпало число')]")).getText().split(" ")[2];
     }
 }

@@ -24,4 +24,21 @@ public class RouletBot {
         WebElement enter = driver.findElement(By.className("entergame"));
         enter.click();
     }
+
+    public void updatePage(){
+        driver.get("http://www.heroeswm.ru/map.php");
+        driver.findElement(By.ByLinkText.linkText("Обработка")).click();
+    }
+
+
+    public void bet(String number, String quantity){
+        driver.get("http://www.heroeswm.ru/roulette.php");
+        WebElement field = driver.findElement(By.xpath("//img[@title='Straight up " + number + "'"));
+        field.click();
+        WebElement bet = driver.findElement(By.name("bet"));
+        bet.clear();
+        bet.sendKeys(quantity);
+        WebElement submit = driver.findElement(By.xpath("//input[@value='Поставить!']"));
+        submit.click();
+    }
 }

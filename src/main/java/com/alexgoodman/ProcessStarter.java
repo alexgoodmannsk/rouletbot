@@ -2,10 +2,10 @@ package com.alexgoodman;
 
 import io.github.bonigarcia.wdm.DriverManagerType;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.Timer;
 
 public class ProcessStarter {
     static private boolean shutdownFlag;
@@ -50,9 +50,14 @@ public class ProcessStarter {
         init();
         RouletBot bot = new RouletBot();
         bot.login();
+        Timer timer = new Timer();
+        ScheduledTask st = new ScheduledTask();
+        timer.schedule(st, 0, 15000);
         while (false == shutdownFlag)
         {
-            //Do some processing
+           if(driver == null){
+               break;
+           }
         }
     }
 
