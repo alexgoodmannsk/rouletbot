@@ -51,8 +51,8 @@ public class ProcessStarter {
         RouletBot bot = new RouletBot();
         bot.login();
         Timer timer = new Timer();
-        ScheduledTask st = new ScheduledTask();
-        timer.schedule(st, 0, 15000);
+        ScheduledTask st = new ScheduledTask(bot);
+        timer.schedule(st, 0, 300000);
         while (false == shutdownFlag)
         {
            if(driver == null){

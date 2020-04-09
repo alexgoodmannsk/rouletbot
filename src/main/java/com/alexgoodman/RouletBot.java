@@ -30,10 +30,19 @@ public class RouletBot {
         driver.findElement(By.ByLinkText.linkText("Обработка")).click();
     }
 
+    public String getLastSpin(){
+        driver.get("http://www.heroeswm.ru/roulette.php");
+        driver.findElement(By.ByLinkText.linkText("Прошлая игра")).click();
+        return driver.findElement(By.xpath("//*[contains(text(), 'Выпало число')]")).getText().split(" ")[2];
+    }
+
+    public Integer getCurrentGold(){
+        return Integer.parseInt(driver.findElement(By.xpath("//td/img[@title='Золото']/following::td[1]")).getText());
+    }
 
     public void bet(String number, String quantity){
         driver.get("http://www.heroeswm.ru/roulette.php");
-        WebElement field = driver.findElement(By.xpath("//img[@title='Straight up " + number + "'"));
+        WebElement field = driver.findElement(By.xpath("//img[@title='Straight up " + number + "']"));
         field.click();
         WebElement bet = driver.findElement(By.name("bet"));
         bet.clear();
