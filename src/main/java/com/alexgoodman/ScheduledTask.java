@@ -1,22 +1,30 @@
 package com.alexgoodman;
 
-import java.util.TimerTask;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-public class ScheduledTask extends TimerTask {
+@Component
+@EnableScheduling
+@Log4j2
+public class ScheduledTask  {
 
-    private RouletBot bot;
+    private RouletteBot bot;
 
-    ScheduledTask(RouletBot bot){
+    @Autowired
+    ScheduledTask(RouletteBot bot){
         this.bot = bot;
     }
 
-    @Override
+    @Scheduled(fixedRate = 300000)
     public void run() {
-        String field = "36";
-        String bet = "2000";
+        bot.login();
         bot.updatePage();
-        if(!field.equals(bot.getLastSpin())){
-            bot.bet(field, bet);
+        if(bot.getCurrentGold()<2200000){
+            bot.bet( "36", "100");
+            bot.bet("15", "100");
         }
     }
 }

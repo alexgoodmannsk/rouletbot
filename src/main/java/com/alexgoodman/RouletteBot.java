@@ -1,14 +1,21 @@
 package com.alexgoodman;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class RouletBot {
+@Component
+@Log4j2
+public class RouletteBot {
+
     private WebDriver driver;
 
-    public RouletBot(){
-        driver = ProcessStarter.getDriver();
+    @Autowired
+    public RouletteBot(SeleniumDriver driver){
+        this.driver = driver.getDriver();
     }
 
     public void login(){
@@ -37,7 +44,9 @@ public class RouletBot {
     }
 
     public Integer getCurrentGold(){
-        return Integer.parseInt(driver.findElement(By.xpath("//td/img[@title='Золото']/following::td[1]")).getText());
+        driver.get("http://www.heroeswm.ru/roulette.php");
+        return Integer.parseInt(driver.findElement(By.xpath("//td/img[@title='Золото']/following::td[1]")).getText()
+            .replace(",",""));
     }
 
     public void bet(String number, String quantity){
