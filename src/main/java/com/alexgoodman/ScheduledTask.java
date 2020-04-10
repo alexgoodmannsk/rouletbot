@@ -18,7 +18,7 @@ public class ScheduledTask  {
         this.bot = bot;
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(cron = "1/5 * * * *")
     public void run() {
         bot.login();
         bot.updatePage();
